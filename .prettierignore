@@ -1,0 +1,15 @@
+node_modules
+build
+dist
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.svg
+android
+ios
+.expo
+.expo-shared
+*.min.js
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
