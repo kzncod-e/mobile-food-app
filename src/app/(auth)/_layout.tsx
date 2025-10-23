@@ -10,11 +10,9 @@ import {
   Image,
 } from 'react-native';
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { Slot } from 'expo-router';
 import { images } from 'constant';
-import CustomInput from '@/components/CustomInput';
-import CustomButton from '@/components/CustomButtom';
 
 const _Layout = () => {
   return (
@@ -44,10 +42,8 @@ const _Layout = () => {
             }}
           />
         </View>
-        <CustomInput />
-        <CustomButton />
+        <Slot />
       </ScrollView>
-      <Slot />
     </KeyboardAvoidingView>
   );
 };

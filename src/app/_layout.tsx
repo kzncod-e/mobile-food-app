@@ -1,11 +1,27 @@
 /* eslint-disable prettier/prettier */
+import * as Sentry from '@sentry/react-native';
 import { SplashScreen, Stack } from 'expo-router';
 import '../../global.css';
 import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
+Sentry.init({
+  dsn: 'https://051cadc91d5c29f9d048e66e13bc2ee1@o4508381019832320.ingest.de.sentry.io/4510237337321552',
 
-export default function RootLayout() {
+  sendDefaultPii: true,
+
+  // Enable Logs
+  enableLogs: true,
+
+  // Configure Session Replay
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1,
+  integrations: [Sentry.mobileReplayIntegration(), Sentry.feedbackIntegration()],
+
+  // uncomment the line below to enable Spotlight (https://spotlightjs.com)
+  // spotlight: __DEV__,
+});
+export function RootLayout() {
   const [fontsLoaded, error] = useFonts({
     'Quicksand-Bold': require('../../assets/fonts/Quicksand-Bold.ttf'),
     'Quicksand-Medium': require('../../assets/fonts/Quicksand-Medium.ttf'),
@@ -15,7 +31,6 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (error) throw error;
     if (fontsLoaded) SplashScreen.hideAsync();
   }, [fontsLoaded, error]);
 
@@ -29,3 +44,4 @@ export default function RootLayout() {
     </React.Fragment>
   );
 }
+export default Sentry.wrap(RootLayout);

@@ -1,11 +1,13 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable prettier/prettier */
+
 import CartButton from '@/components/CartButton';
 import { cn } from '@/utils/cn';
 import { images, offers } from 'constant';
 import { Fragment } from 'react';
-import { FlatList, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
+import { Button, FlatList, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as Sentry from '@sentry/react-native';
 
 export default function IndexScreen() {
   return (
@@ -53,6 +55,18 @@ export default function IndexScreen() {
             </View>
             <CartButton />
           </View>
+        )}
+        ListFooterComponent={() => (
+          <Button
+            title="Try!"
+            onPress={() => {
+              console.log('Try button pressed');
+              // Provide immediate user feedback while we check Sentry
+              // Using the global alert is acceptable for a quick debug UI
+              alert('Try button pressed — Sentry capture attempted');
+              Sentry.captureException(new Error('First error'));
+            }}
+          />
         )}
         contentContainerClassName="pb-28 px-5"
       />
