@@ -8,8 +8,12 @@ import { Fragment } from 'react';
 import { Button, FlatList, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Sentry from '@sentry/react-native';
+import useAuthStore from '@/store/auth.store';
 
 export default function IndexScreen() {
+  const { user } = useAuthStore();
+  console.log(JSON.stringify(user, null, 2));
+
   return (
     <SafeAreaView className="flex-1 bg-white">
       <FlatList
@@ -55,18 +59,6 @@ export default function IndexScreen() {
             </View>
             <CartButton />
           </View>
-        )}
-        ListFooterComponent={() => (
-          <Button
-            title="Try!"
-            onPress={() => {
-              console.log('Try button pressed');
-              // Provide immediate user feedback while we check Sentry
-              // Using the global alert is acceptable for a quick debug UI
-              alert('Try button pressed — Sentry capture attempted');
-              Sentry.captureException(new Error('First error'));
-            }}
-          />
         )}
         contentContainerClassName="pb-28 px-5"
       />
